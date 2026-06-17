@@ -103,6 +103,30 @@
       display:grid;place-items:center;font-size:30px;
     }
     .preset.active{outline:3px solid rgba(155,109,255,.55)}
+    .preview-switch{
+      display:flex;
+      gap:8px;
+      padding:6px;
+      border-radius:14px;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.12);
+      margin-bottom:16px;
+      width:max-content;
+    }
+    .preview-lang{
+      cursor:pointer;
+      border:none;
+      padding:9px 14px;
+      border-radius:10px;
+      background:transparent;
+      color:#d9dcff;
+      font-weight:900;
+    }
+    .preview-lang.active,
+    .preview-lang:hover{
+      background:linear-gradient(135deg,#7c3cff,#34c4ff);
+      color:#fff;
+    }
     .preview-card{
       padding:26px;border-radius:18px;
       background:linear-gradient(180deg,rgba(18,24,43,.95),rgba(12,16,30,.95));
@@ -194,6 +218,11 @@
 
         <div>
           <h2>Предпросмотр</h2>
+          <div class="preview-switch">
+            <button type="button" class="preview-lang active" data-preview-lang="ru" onclick="setPreviewLang('ru')">RU</button>
+            <button type="button" class="preview-lang" data-preview-lang="ua" onclick="setPreviewLang('ua')">UA</button>
+            <button type="button" class="preview-lang" data-preview-lang="en" onclick="setPreviewLang('en')">EN</button>
+          </div>
           <article class="preview-card">
             <div id="previewImage" class="article-image">🤖</div>
             <small id="previewCategory">Telegram-боты</small>
@@ -286,6 +315,7 @@
   const ADMIN_PASSWORD = "DanyaDev2026!";
   let selectedIcon = "🤖";
   let uploadedImage = "";
+  let previewLang = "ru";
 
   function loginAdmin(){
     const login = document.getElementById("login").value.trim();
@@ -329,16 +359,31 @@
       .replaceAll('"', "&quot;");
   }
 
+  function setPreviewLang(lang){
+    previewLang = lang;
+    document.querySelectorAll(".preview-lang").forEach(button => {
+      button.classList.toggle("active", button.dataset.previewLang === lang);
+    });
+    updatePreview();
+  }
+
   function updatePreview(){
-    const category = document.getElementById("ruCategory").value || "Категория";
-    const title = document.getElementById("ruTitle").value || "Заголовок статьи";
-    const description = document.getElementById("ruDescription").value || "Короткое описание статьи.";
+    const placeholders = {
+      ru: { category: "Категория", title: "Заголовок статьи", description: "Короткое описание статьи.", button: "Читать больше" },
+      ua: { category: "Категорія", title: "Заголовок статті", description: "Короткий опис статті.", button: "Читати більше" },
+      en: { category: "Category", title: "Article title", description: "Short article description.", button: "Read more" }
+    };
+
+    const category = document.getElementById(previewLang + "Category").value || placeholders[previewLang].category;
+    const title = document.getElementById(previewLang + "Title").value || placeholders[previewLang].title;
+    const description = document.getElementById(previewLang + "Description").value || placeholders[previewLang].description;
     const link = document.getElementById("link").value || "#";
 
     document.getElementById("previewCategory").textContent = category;
     document.getElementById("previewTitle").textContent = title;
     document.getElementById("previewDescription").textContent = description;
     document.getElementById("previewLink").href = link;
+    document.getElementById("previewLink").textContent = placeholders[previewLang].button;
 
     const image = document.getElementById("previewImage");
     if(uploadedImage){
