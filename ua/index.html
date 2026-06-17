@@ -1,1 +1,1254 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DANYA DEV — Розробка Telegram-ботів під ключ</title>
+  <meta name="description" content="DANYA DEV — розробка Telegram-ботів під ключ. Боти для бізнесу, продажів, навчання, заявок та автоматизації.">
+  <meta name="keywords" content="Telegram бот, разработка Telegram ботов, Telegram bot, бот для магазина, бот для бизнеса, DANYA DEV">
+  <meta name="author" content="DANYA DEV">
+  
+  <link rel="canonical" href="https://danyaplus.github.io/danya-dev/ua/">
+  <link rel="alternate" hreflang="ru" href="https://danyaplus.github.io/danya-dev/">
+  <link rel="alternate" hreflang="uk" href="https://danyaplus.github.io/danya-dev/ua/">
+  <link rel="alternate" hreflang="en" href="https://danyaplus.github.io/danya-dev/en/">
+  <link rel="alternate" hreflang="x-default" href="https://danyaplus.github.io/danya-dev/">
 
+  <meta property="og:title" content="DANYA DEV — Розробка Telegram-ботів під ключ">
+  <meta property="og:description" content="DANYA DEV — розробка Telegram-ботів під ключ. Боти для бізнесу, продажів, навчання, заявок та автоматизації.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://danyaplus.github.io/danya-dev/ua/">
+  <meta property="og:image" content="https://danyaplus.github.io/danya-dev/logo.png">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="../logo.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="../logo.png">
+  <link rel="apple-touch-icon" href="../logo.png">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #070912;
+      color: #ffffff;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1120px, 92%);
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(7, 9, 18, 0.86);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .nav {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
+
+    .logo-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #7c3cff, #34c4ff);
+      display: grid;
+      place-items: center;
+      box-shadow: 0 0 28px rgba(124, 60, 255, 0.55);
+    }
+
+    .logo span:last-child {
+      color: #9b6dff;
+    }
+
+    .menu {
+      display: flex;
+      gap: 22px;
+      font-size: 15px;
+      color: #d9dcff;
+      align-items: center;
+    }
+
+    .menu a:hover {
+      color: #9b6dff;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      white-space: nowrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 24px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #7c3cff, #9b6dff);
+      color: #fff;
+      font-weight: 700;
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 0 26px rgba(124, 60, 255, 0.35);
+      transition: 0.25s;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 34px rgba(124, 60, 255, 0.65);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.25);
+      box-shadow: none;
+    }
+
+    .lang-switch {
+      display: flex;
+      gap: 5px;
+      padding: 5px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .lang-switch button,
+    .lang-switch .lang-link {
+      cursor: pointer;
+      border: none;
+      padding: 8px 9px;
+      border-radius: 8px;
+      background: transparent;
+      color: #d9dcff;
+      font-weight: 800;
+      font-size: 12px;
+    }
+
+    .lang-switch button.active,
+    .lang-switch .lang-link.active,
+    .lang-switch button:hover,
+    .lang-switch .lang-link:hover {
+      background: linear-gradient(135deg, #7c3cff, #34c4ff);
+      color: #fff;
+    }
+
+    .hero {
+      padding: 95px 0 70px;
+      background:
+        radial-gradient(circle at 75% 30%, rgba(124, 60, 255, 0.38), transparent 30%),
+        radial-gradient(circle at 25% 15%, rgba(52, 196, 255, 0.12), transparent 24%);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .badge {
+      color: #a987ff;
+      text-transform: uppercase;
+      font-weight: 800;
+      font-size: 14px;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: clamp(40px, 6vw, 68px);
+      line-height: 1.04;
+      margin-bottom: 22px;
+    }
+
+    .hero p {
+      color: #c9cce8;
+      font-size: 20px;
+      line-height: 1.65;
+      max-width: 620px;
+      margin-bottom: 34px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .phone-card {
+      min-height: 420px;
+      border-radius: 32px;
+      background: linear-gradient(145deg, rgba(124, 60, 255, 0.30), rgba(52, 196, 255, 0.08));
+      border: 1px solid rgba(255,255,255,0.12);
+      display: grid;
+      place-items: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: inset 0 0 50px rgba(255,255,255,0.04);
+    }
+
+    .phone {
+      width: 230px;
+      height: 410px;
+      border: 8px solid #161b32;
+      border-radius: 34px;
+      background: #0b0f1f;
+      transform: rotate(10deg);
+      box-shadow: 0 30px 70px rgba(0,0,0,0.6);
+      display: grid;
+      place-items: center;
+      text-align: center;
+    }
+
+    .telegram-icon {
+      width: 92px;
+      height: 92px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #7c3cff, #34c4ff);
+      display: grid;
+      place-items: center;
+      margin: 0 auto 22px;
+      font-size: 44px;
+    }
+
+    section {
+      padding: 86px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 46px;
+    }
+
+    .section-title .badge {
+      margin-bottom: 12px;
+    }
+
+    h2 {
+      font-size: clamp(32px, 4vw, 46px);
+      line-height: 1.1;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .card {
+      background: linear-gradient(180deg, rgba(18, 24, 43, 0.95), rgba(12, 16, 30, 0.95));
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px;
+      padding: 28px;
+      transition: 0.25s;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(155, 109, 255, 0.55);
+      box-shadow: 0 18px 45px rgba(0,0,0,0.35);
+    }
+
+    .card-icon {
+      width: 66px;
+      height: 66px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #7c3cff, #34c4ff);
+      display: grid;
+      place-items: center;
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
+
+    .card h3 {
+      font-size: 23px;
+      margin-bottom: 10px;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 8px;
+      background: rgba(124, 60, 255, 0.16);
+      color: #b897ff;
+      font-size: 13px;
+      margin-bottom: 14px;
+    }
+
+    .card p {
+      color: #c8cce4;
+      line-height: 1.55;
+      margin-bottom: 18px;
+    }
+
+    .list {
+      list-style: none;
+      display: grid;
+      gap: 10px;
+      margin: 18px 0 24px;
+      color: #d8dbf4;
+    }
+
+    .list li::before {
+      content: "✓";
+      color: #9b6dff;
+      font-weight: 900;
+      margin-right: 10px;
+    }
+
+    .about {
+      background: linear-gradient(180deg, #090c17, #070912);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .about-box {
+      border-radius: 22px;
+      padding: 34px;
+      background: linear-gradient(145deg, rgba(124, 60, 255, 0.20), rgba(52, 196, 255, 0.08));
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .about-box h2 {
+      margin-bottom: 18px;
+    }
+
+    .about-box p,
+    .text-block p {
+      color: #c9cce8;
+      line-height: 1.7;
+      font-size: 17px;
+      margin-bottom: 14px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .stat {
+      padding: 26px;
+      border-radius: 18px;
+      background: rgba(18, 24, 43, 0.85);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 34px;
+      color: #9b6dff;
+      margin-bottom: 6px;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+    }
+
+    .service {
+      padding: 28px;
+      border-radius: 18px;
+      background: rgba(18, 24, 43, 0.88);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .service h3 {
+      font-size: 22px;
+      margin-bottom: 12px;
+    }
+
+    .service p {
+      color: #c8cce4;
+      line-height: 1.65;
+    }
+
+    .reviews {
+      background: #090c17;
+    }
+
+    .review-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .review {
+      padding: 26px;
+      border-radius: 18px;
+      background: rgba(18, 24, 43, 0.88);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .review p {
+      color: #d8dbf4;
+      line-height: 1.6;
+      margin-bottom: 18px;
+    }
+
+    .review strong {
+      color: #ffffff;
+    }
+
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .article {
+      padding: 26px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(18, 24, 43, 0.95), rgba(12, 16, 30, 0.95));
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .article small {
+      color: #9b6dff;
+      font-weight: 700;
+    }
+
+    .article h3 {
+      margin: 12px 0;
+      font-size: 21px;
+    }
+
+    .article p {
+      color: #c8cce4;
+      line-height: 1.6;
+    }
+
+    .blog-slider {
+      position: relative;
+    }
+
+    .blog-track {
+      display: flex;
+      gap: 22px;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      padding: 8px 4px 18px;
+      scrollbar-width: none;
+    }
+
+    .blog-track::-webkit-scrollbar {
+      display: none;
+    }
+
+    .blog-track .article {
+      min-width: calc((100% - 44px) / 3);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .article-image {
+      height: 170px;
+      border-radius: 16px;
+      margin-bottom: 20px;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(52, 196, 255, 0.45), transparent 28%),
+        radial-gradient(circle at 80% 30%, rgba(124, 60, 255, 0.55), transparent 34%),
+        linear-gradient(135deg, rgba(124, 60, 255, 0.42), rgba(7, 9, 18, 0.98));
+      border: 1px solid rgba(255,255,255,0.12);
+      display: grid;
+      place-items: center;
+      font-size: 54px;
+      box-shadow: inset 0 0 40px rgba(255,255,255,0.04);
+    }
+
+    .article-more {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease;
+      color: #c8cce4;
+      line-height: 1.65;
+      margin-top: 0;
+    }
+
+    .article.open .article-more {
+      max-height: 360px;
+      margin-top: 14px;
+    }
+
+    .read-more {
+      margin-top: auto;
+      cursor: pointer;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: transparent;
+      color: #fff;
+      font-weight: 800;
+      border-radius: 10px;
+      padding: 12px 16px;
+      transition: 0.25s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .read-more:hover {
+      background: linear-gradient(135deg, #7c3cff, #34c4ff);
+      border-color: transparent;
+    }
+
+    .blog-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 3;
+      width: 46px;
+      height: 58px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.16);
+      background: rgba(12, 16, 30, 0.92);
+      color: #ffffff;
+      font-size: 26px;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.45);
+      transition: 0.25s;
+    }
+
+    .blog-arrow:hover {
+      background: linear-gradient(135deg, #7c3cff, #34c4ff);
+    }
+
+    .blog-arrow.left {
+      left: -18px;
+    }
+
+    .blog-arrow.right {
+      right: -18px;
+    }
+
+
+    .contact {
+      text-align: center;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(124, 60, 255, 0.25), transparent 34%),
+        #070912;
+    }
+
+    .contact p {
+      color: #c9cce8;
+      max-width: 650px;
+      margin: 16px auto 28px;
+      line-height: 1.65;
+      font-size: 18px;
+    }
+
+    footer {
+      padding: 28px 0;
+      color: #8e93b5;
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    @media (max-width: 1040px) {
+      .menu {
+        display: none;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .nav {
+        padding: 12px 0;
+      }
+
+      .nav-right {
+        gap: 8px;
+      }
+
+      .btn {
+        padding: 0 16px;
+      }
+
+      .hero-grid,
+      .about-grid,
+      .cards,
+      .services-grid,
+      .review-grid,
+      .blog-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .blog-track .article {
+        min-width: 86%;
+      }
+
+      .blog-arrow.left {
+        left: 4px;
+      }
+
+      .blog-arrow.right {
+        right: 4px;
+      }
+
+      .phone-card {
+        min-height: 330px;
+      }
+
+      .phone {
+        width: 190px;
+        height: 330px;
+      }
+
+      section {
+        padding: 64px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container nav">
+      <a class="logo" href="#home">
+        <span class="logo-icon">✈</span>
+        <strong>DANYA <span>DEV</span></strong>
+      </a>
+
+      <nav class="menu">
+        <a href="#home" data-i18n="navHome">Головна</a>
+        <a href="#services" data-i18n="navServices">Послуги</a>
+        <a href="#bots" data-i18n="navBots">Боти</a>
+        <a href="#about" data-i18n="navAbout">Про мене</a>
+        <a href="#reviews" data-i18n="navReviews">Відгуки</a>
+        <a href="#blog" data-i18n="navBlog">Статті</a>
+        <a href="#contacts" data-i18n="navContacts">Контакти</a>
+      </nav>
+
+      <div class="nav-right">
+        <a class="btn" href="https://t.me/your_username" data-i18n="contactButton">Зв'язатися</a>
+        <div class="lang-switch" aria-label="Language switcher">
+          <a class="lang-link " data-lang-btn="ru" href="/danya-dev/">RU</a>
+          <a class="lang-link active" data-lang-btn="ua" href="/danya-dev/ua/">UA</a>
+          <a class="lang-link " data-lang-btn="en" href="/danya-dev/en/">EN</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div>
+          <div class="badge" data-i18n="heroBadge">Розробка Telegram-ботів</div>
+          <h1 data-i18n="heroTitle">Створюю Telegram-ботів під ваші завдання</h1>
+          <p data-i18n="heroText">Автоматизація, зручність та ефективність — усе це в моїх Telegram-ботах. Я створюю ботів для бізнесу, навчання, заявок, заходів і продажів.</p>
+          <div class="hero-actions">
+            <a class="btn" href="#bots" data-i18n="heroWorksButton">Мої роботи</a>
+            <a class="btn btn-outline" href="#services" data-i18n="heroServicesButton">Послуги</a>
+          </div>
+        </div>
+
+        <div class="phone-card">
+          <div class="phone">
+            <div>
+              <div class="telegram-icon">✈</div>
+              <h3>Telegram Bot</h3>
+              <p style="margin: 8px 0 0; color:#9b6dff;">DANYA DEV</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="bots">
+      <div class="container">
+        <div class="section-title">
+          <div class="badge" data-i18n="botsBadge">Мої боти</div>
+          <h2 data-i18n="botsTitle">Приклади моїх робіт</h2>
+        </div>
+
+        <div class="cards">
+          <div class="card">
+            <div class="card-icon">🛒</div>
+            <h3>ShopBot</h3>
+            <span class="tag" data-i18n="shopTag">Для магазинів</span>
+            <p data-i18n="shopText">Бот для інтернет-магазинів із кошиком, заявками, оплатою та сповіщеннями.</p>
+            <ul class="list">
+              <li data-i18n="shopLi1">Зручний кошик</li>
+              <li data-i18n="shopLi2">Інтеграція з оплатою</li>
+              <li data-i18n="shopLi3">Сповіщення про замовлення</li>
+              <li data-i18n="shopLi4">Панель адміністратора</li>
+            </ul>
+            <a class="btn btn-outline" href="https://t.me/YOUR_BOT_USERNAME?start=shopbot" data-i18n="moreButton">Детальніше</a>
+          </div>
+
+          <div class="card">
+            <div class="card-icon">🎓</div>
+            <h3>EduBot</h3>
+            <span class="tag" data-i18n="eduTag">Для навчання</span>
+            <p data-i18n="eduText">Бот для онлайн-курсів, шкіл і репетиторів із тестами та прогресом.</p>
+            <ul class="list">
+              <li data-i18n="eduLi1">Тести та вікторини</li>
+              <li data-i18n="eduLi2">Відстеження прогресу</li>
+              <li data-i18n="eduLi3">Видача сертифікатів</li>
+              <li data-i18n="eduLi4">Розсилка матеріалів</li>
+            </ul>
+            <a class="btn btn-outline" href="https://t.me/YOUR_BOT_USERNAME?start=edubot" data-i18n="moreButton">Детальніше</a>
+          </div>
+
+          <div class="card">
+            <div class="card-icon">📅</div>
+            <h3>EventBot</h3>
+            <span class="tag" data-i18n="eventTag">Для заходів</span>
+            <p data-i18n="eventText">Бот для реєстрації учасників, нагадувань, розкладу та статистики.</p>
+            <ul class="list">
+              <li data-i18n="eventLi1">Реєстрація учасників</li>
+              <li data-i18n="eventLi2">Нагадування про події</li>
+              <li data-i18n="eventLi3">QR-квитки</li>
+              <li data-i18n="eventLi4">Статистика та звіти</li>
+            </ul>
+            <a class="btn btn-outline" href="https://t.me/YOUR_BOT_USERNAME?start=eventbot" data-i18n="moreButton">Детальніше</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="about" id="about">
+      <div class="container about-grid">
+        <div class="about-box">
+          <div class="badge" data-i18n="aboutBadge">Про мене</div>
+          <h2 data-i18n="aboutTitle">Я створюю ботів, які реально допомагають</h2>
+          <p data-i18n="aboutP1">Мене звати Даня, я займаюся розробкою Telegram-ботів для бізнесу, послуг, навчання та автоматизації процесів.</p>
+          <p data-i18n="aboutP2">Моє завдання — не просто написати код, а створити зручного помічника, який економить час, приймає заявки, відповідає клієнтам і допомагає працювати швидше.</p>
+          <a class="btn" href="#contacts" data-i18n="discussButton">Обговорити проєкт</a>
+        </div>
+
+        <div class="stats">
+          <div class="stat">
+            <strong>24/7</strong>
+            <span data-i18n="stat1">Бот працює без вихідних і автоматично відповідає клієнтам</span>
+          </div>
+          <div class="stat">
+            <strong>100%</strong>
+            <span data-i18n="stat2">Індивідуальна логіка під ваше завдання</span>
+          </div>
+          <div class="stat">
+            <strong>⚡</strong>
+            <span data-i18n="stat3">Швидкий запуск і зрозуміла структура</span>
+          </div>
+          <div class="stat">
+            <strong>🛠</strong>
+            <span data-i18n="stat4">Підтримка та доопрацювання після запуску</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="services">
+      <div class="container">
+        <div class="section-title">
+          <div class="badge" data-i18n="servicesBadge">Послуги</div>
+          <h2 data-i18n="servicesTitle">Що я можу зробити</h2>
+        </div>
+
+        <div class="services-grid">
+          <div class="service">
+            <h3 data-i18n="service1Title">🤖 Telegram-бот під ключ</h3>
+            <p data-i18n="service1Text">Повна розробка бота з нуля: меню, кнопки, сценарії, логіка, тексти, оформлення та запуск.</p>
+          </div>
+
+          <div class="service">
+            <h3 data-i18n="service2Title">🛒 Бот для продажів</h3>
+            <p data-i18n="service2Text">Каталог товарів, кошик, оформлення замовлення, сповіщення власнику, зв'язок із клієнтом і зручна структура магазину.</p>
+          </div>
+
+          <div class="service">
+            <h3 data-i18n="service3Title">📋 Бот для заявок і запису</h3>
+            <p data-i18n="service3Text">Збір імені, телефону, послуги, дати та коментаря клієнта. Усі заявки приходять у зручному вигляді.</p>
+          </div>
+
+          <div class="service">
+            <h3 data-i18n="service4Title">🎓 Бот для навчання</h3>
+            <p data-i18n="service4Text">Уроки, матеріали, тести, перевірка відповідей, доступи, прогрес учнів та автоматична видача інформації.</p>
+          </div>
+
+          <div class="service">
+            <h3 data-i18n="service5Title">📅 Бот для заходів</h3>
+            <p data-i18n="service5Text">Реєстрація учасників, розклад, нагадування, QR-коди, список гостей і статистика.</p>
+          </div>
+
+          <div class="service">
+            <h3 data-i18n="service6Title">⚙️ Доопрацювання та підтримка</h3>
+            <p data-i18n="service6Text">Виправлення помилок, додавання нових функцій, зміна текстів, налаштування кнопок і покращення вже готового бота.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="reviews" id="reviews">
+      <div class="container">
+        <div class="section-title">
+          <div class="badge" data-i18n="reviewsBadge">Відгуки</div>
+          <h2 data-i18n="reviewsTitle">Відгуки клієнтів</h2>
+        </div>
+
+        <div class="review-grid">
+          <div class="review">
+            <p data-i18n="review1">«Бот вийшов зручний і зрозумілий. Тепер заявки приходять автоматично, а клієнтам простіше обрати послугу.»</p>
+            <strong data-i18n="reviewName1">— Клієнт проєкту</strong>
+          </div>
+
+          <div class="review">
+            <p data-i18n="review2">«Дуже сподобалося, що все зробили під моє завдання, без зайвої складності. Меню виглядає акуратно.»</p>
+            <strong data-i18n="reviewName2">— Власник бізнесу</strong>
+          </div>
+
+          <div class="review">
+            <p data-i18n="review3">«Після запуску стало менше ручного листування. Бот сам пояснює, збирає дані та надсилає заявку.»</p>
+            <strong data-i18n="reviewName3">— Замовник Telegram-бота</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="blog">
+      <div class="container">
+        <div class="section-title">
+          <div class="badge" data-i18n="blogBadge">Блог</div>
+          <h2 data-i18n="blogTitle">Статті та корисні матеріали</h2>
+        </div>
+
+        <div class="blog-slider">
+          <button class="blog-arrow left" type="button" onclick="scrollBlog(-1)" aria-label="Previous articles">‹</button>
+          <button class="blog-arrow right" type="button" onclick="scrollBlog(1)" aria-label="Next articles">›</button>
+
+          <div class="blog-track" id="blogTrack">
+            <article class="article">
+              <div class="article-image">🤖</div>
+              <small data-i18n="article1Category">Telegram-боти</small>
+              <h3 data-i18n="article1Title">Навіщо бізнесу Telegram-бот?</h3>
+              <p data-i18n="article1Text">Бот допомагає автоматизувати відповіді, приймати заявки, показувати послуги та не втрачати клієнтів.</p>
+              <div class="article-more" data-i18n="article1More">Telegram-бот працює як маленький менеджер усередині месенджера: зустрічає клієнта, пояснює послуги, збирає дані та передає заявку власнику. Це особливо зручно, коли багато однакових запитань і не хочеться відповідати кожному вручну.</div>
+              <a class="read-more" href="https://t.me/YOUR_CHANNEL_USERNAME" target="_blank" data-i18n="readMore">Читати більше</a>
+            </article>
+
+            <article class="article">
+              <div class="article-image">⚙️</div>
+              <small data-i18n="article2Category">Автоматизація</small>
+              <h3 data-i18n="article2Title">Які завдання можна передати боту?</h3>
+              <p data-i18n="article2Text">Запис клієнтів, анкети, замовлення, розсилки, сповіщення, навчання та видачу матеріалів.</p>
+              <div class="article-more" data-i18n="article2More">Боту можна довірити все, що повторюється щодня: прийом заявок, збір контактів, відповіді на часті запитання, видачу прайсу, реєстрацію на заходи, сповіщення та первинну консультацію клієнта.</div>
+              <a class="read-more" href="https://t.me/YOUR_CHANNEL_USERNAME" target="_blank" data-i18n="readMore">Читати більше</a>
+            </article>
+
+            <article class="article">
+              <div class="article-image">✨</div>
+              <small data-i18n="article3Category">Технології</small>
+              <h3 data-i18n="article3Title">Що важливо в хорошому Telegram-боті?</h3>
+              <p data-i18n="article3Text">Зрозуміла логіка, швидкі відповіді, зручні кнопки, акуратний текст і просте керування.</p>
+              <div class="article-more" data-i18n="article3More">Хороший бот не повинен плутати людину. У ньому важливо продумати шлях клієнта: куди натиснути, що обрати, які дані залишити та що станеться після заявки. Чим простіша логіка — тим вищий шанс, що клієнт дійде до кінця.</div>
+              <a class="read-more" href="https://t.me/YOUR_CHANNEL_USERNAME" target="_blank" data-i18n="readMore">Читати більше</a>
+            </article>
+
+            <article class="article">
+              <div class="article-image">🛒</div>
+              <small data-i18n="article4Category">Продажі</small>
+              <h3 data-i18n="article4Title">Як бот допомагає продавати?</h3>
+              <p data-i18n="article4Text">Клієнт може переглянути товари, обрати послугу, оформити замовлення та залишити контакт без зайвого листування.</p>
+              <div class="article-more" data-i18n="article4More">Замість довгих повідомлень у директі клієнт проходить зрозумілий сценарій: обирає категорію, дивиться опис, залишає дані та отримує підтвердження. Власник отримує вже готову заявку, а не хаотичний діалог.</div>
+              <a class="read-more" href="https://t.me/YOUR_CHANNEL_USERNAME" target="_blank" data-i18n="readMore">Читати більше</a>
+            </article>
+
+            <article class="article">
+              <div class="article-image">📩</div>
+              <small data-i18n="article5Category">Заявки</small>
+              <h3 data-i18n="article5Title">Чому форма заявки в боті зручніша?</h3>
+              <p data-i18n="article5Text">Бот одразу запитує потрібні дані: проєкт, задачу, контакт, строки та важливі побажання.</p>
+              <div class="article-more" data-i18n="article5More">Коли заявка оформлена за структурою, розробнику простіше оцінити задачу, а клієнту — швидше отримати відповідь. Це економить час обом сторонам і допомагає не забути важливі деталі проєкту.</div>
+              <a class="read-more" href="https://t.me/YOUR_CHANNEL_USERNAME" target="_blank" data-i18n="readMore">Читати більше</a>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contacts">
+      <div class="container">
+        <div class="badge" data-i18n="contactsBadge">Контакти</div>
+        <h2 data-i18n="contactsTitle">Хочете Telegram-бота під своє завдання?</h2>
+        <p data-i18n="contactsText">Напишіть мені в Telegram, розкажіть ідею, а я підкажу, якого бота краще зробити та які функції в нього додати.</p>
+        <a class="btn" href="https://t.me/your_username" data-i18n="telegramButton">Написати в Telegram</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container" data-i18n="footer">© 2026 DANYA DEV. Telegram-боти та автоматизація.</div>
+  </footer>
+
+  <script>
+    const translations = {
+      ru: {
+        pageTitle: "DANYA DEV — Разработка Telegram-ботов под ключ",
+        navHome: "Главная",
+        navServices: "Услуги",
+        navBots: "Боты",
+        navAbout: "Обо мне",
+        navReviews: "Отзывы",
+        navBlog: "Статьи",
+        navContacts: "Контакты",
+        contactButton: "Связаться",
+        heroBadge: "Разработка Telegram-ботов",
+        heroTitle: "Создаю Telegram-ботов под ваши задачи",
+        heroText: "Автоматизация, удобство и эффективность — всё это в моих Telegram-ботах. Я делаю ботов для бизнеса, обучения, заявок, мероприятий и продаж.",
+        heroWorksButton: "Мои работы",
+        heroServicesButton: "Услуги",
+        botsBadge: "Мои боты",
+        botsTitle: "Примеры моих работ",
+        shopTag: "Для магазинов",
+        shopText: "Бот для интернет-магазинов с корзиной, заявками, оплатой и уведомлениями.",
+        shopLi1: "Удобная корзина",
+        shopLi2: "Интеграция с оплатой",
+        shopLi3: "Уведомления о заказах",
+        shopLi4: "Панель администратора",
+        eduTag: "Для обучения",
+        eduText: "Бот для онлайн-курсов, школ и репетиторов с тестами и прогрессом.",
+        eduLi1: "Тесты и викторины",
+        eduLi2: "Отслеживание прогресса",
+        eduLi3: "Выдача сертификатов",
+        eduLi4: "Рассылка материалов",
+        eventTag: "Для мероприятий",
+        eventText: "Бот для регистрации участников, напоминаний, расписания и статистики.",
+        eventLi1: "Регистрация участников",
+        eventLi2: "Напоминания о событиях",
+        eventLi3: "QR-билеты",
+        eventLi4: "Статистика и отчёты",
+        moreButton: "Подробнее",
+        aboutBadge: "Обо мне",
+        aboutTitle: "Я создаю ботов, которые реально помогают",
+        aboutP1: "Меня зовут Даня, я занимаюсь разработкой Telegram-ботов для бизнеса, услуг, обучения и автоматизации процессов.",
+        aboutP2: "Моя задача — не просто написать код, а сделать удобного помощника, который экономит время, принимает заявки, отвечает клиентам и помогает работать быстрее.",
+        discussButton: "Обсудить проект",
+        stat1: "Бот работает без выходных и отвечает клиентам автоматически",
+        stat2: "Индивидуальная логика под вашу задачу",
+        stat3: "Быстрый запуск и понятная структура",
+        stat4: "Поддержка и доработка после запуска",
+        servicesBadge: "Услуги",
+        servicesTitle: "Что я могу сделать",
+        service1Title: "🤖 Telegram-бот под ключ",
+        service1Text: "Полная разработка бота с нуля: меню, кнопки, сценарии, логика, тексты, оформление и запуск.",
+        service2Title: "🛒 Бот для продаж",
+        service2Text: "Каталог товаров, корзина, оформление заказа, уведомления владельцу, связь с клиентом и удобная структура магазина.",
+        service3Title: "📋 Бот для заявок и записи",
+        service3Text: "Сбор имени, телефона, услуги, даты, комментария клиента. Все заявки приходят в удобном виде.",
+        service4Title: "🎓 Бот для обучения",
+        service4Text: "Уроки, материалы, тесты, проверка ответов, доступы, прогресс учеников и автоматическая выдача информации.",
+        service5Title: "📅 Бот для мероприятий",
+        service5Text: "Регистрация участников, расписание, напоминания, QR-коды, список гостей и статистика.",
+        service6Title: "⚙️ Доработка и поддержка",
+        service6Text: "Исправление ошибок, добавление новых функций, изменение текстов, настройка кнопок и улучшение уже готового бота.",
+        reviewsBadge: "Отзывы",
+        reviewsTitle: "Отзывы клиентов",
+        review1: "«Бот получился удобный и понятный. Теперь заявки приходят автоматически, а клиентам проще выбрать услугу.»",
+        reviewName1: "— Клиент проекта",
+        review2: "«Очень понравилось, что всё сделали под мою задачу, без лишней сложности. Меню выглядит аккуратно.»",
+        reviewName2: "— Владелец бизнеса",
+        review3: "«После запуска стало меньше ручной переписки. Бот сам объясняет, собирает данные и отправляет заявку.»",
+        reviewName3: "— Заказчик Telegram-бота",
+        blogBadge: "Блог",
+        blogTitle: "Статьи и полезные материалы",
+        article1Category: "Telegram-боты",
+        article1Title: "Зачем бизнесу Telegram-бот?",
+        article1Text: "Бот помогает автоматизировать ответы, принимать заявки, показывать услуги и не терять клиентов.",
+        article2Category: "Автоматизация",
+        article2Title: "Какие задачи можно передать боту?",
+        article2Text: "Запись клиентов, анкеты, заказы, рассылки, уведомления, обучение и выдачу материалов.",
+        article3Category: "Технологии",
+        article3Title: "Что важно в хорошем Telegram-боте?",
+        article3Text: "Понятная логика, быстрые ответы, удобные кнопки, аккуратный текст и простое управление.",
+        readMore: "Читать больше",
+        readLess: "Читать меньше",
+        article1More: "Telegram-бот работает как маленький менеджер внутри мессенджера: он встречает клиента, объясняет услуги, собирает данные и передаёт заявку владельцу. Это особенно удобно, когда много однотипных вопросов и не хочется отвечать каждому вручную.",
+        article2More: "Боту можно доверить всё, что повторяется каждый день: приём заявок, сбор контактов, ответы на частые вопросы, выдачу прайса, регистрацию на мероприятия, отправку уведомлений и первичную консультацию клиента.",
+        article3More: "Хороший бот не должен путать человека. В нём важно продумать путь клиента: куда нажать, что выбрать, какие данные оставить и что произойдёт после заявки. Чем проще логика — тем выше шанс, что клиент дойдёт до конца.",
+        article4Category: "Продажи",
+        article4Title: "Как бот помогает продавать?",
+        article4Text: "Клиент может посмотреть товары, выбрать услугу, оформить заказ и оставить контакт без лишней переписки.",
+        article4More: "Вместо длинных сообщений в директе клиент проходит понятный сценарий: выбирает категорию, смотрит описание, оставляет данные и получает подтверждение. Владелец получает уже готовую заявку, а не хаотичный диалог.",
+        article5Category: "Заявки",
+        article5Title: "Почему форма заявки в боте удобнее?",
+        article5Text: "Бот сразу спрашивает нужные данные: проект, задачу, контакт, сроки и важные пожелания.",
+        article5More: "Когда заявка оформлена по структуре, разработчику проще оценить задачу, а клиенту — быстрее получить ответ. Это экономит время обеим сторонам и помогает не забыть важные детали проекта.",
+        contactsBadge: "Контакты",
+        contactsTitle: "Хотите Telegram-бота под свою задачу?",
+        contactsText: "Напишите мне в Telegram, расскажите идею, а я подскажу, какой бот лучше сделать и какие функции в него добавить.",
+        telegramButton: "Написать в Telegram",
+        footer: "© 2026 DANYA DEV. Telegram-боты и автоматизация."
+      },
+      ua: {
+        pageTitle: "DANYA DEV — Розробка Telegram-ботів під ключ",
+        navHome: "Головна",
+        navServices: "Послуги",
+        navBots: "Боти",
+        navAbout: "Про мене",
+        navReviews: "Відгуки",
+        navBlog: "Статті",
+        navContacts: "Контакти",
+        contactButton: "Зв'язатися",
+        heroBadge: "Розробка Telegram-ботів",
+        heroTitle: "Створюю Telegram-ботів під ваші завдання",
+        heroText: "Автоматизація, зручність та ефективність — усе це в моїх Telegram-ботах. Я створюю ботів для бізнесу, навчання, заявок, заходів і продажів.",
+        heroWorksButton: "Мої роботи",
+        heroServicesButton: "Послуги",
+        botsBadge: "Мої боти",
+        botsTitle: "Приклади моїх робіт",
+        shopTag: "Для магазинів",
+        shopText: "Бот для інтернет-магазинів із кошиком, заявками, оплатою та сповіщеннями.",
+        shopLi1: "Зручний кошик",
+        shopLi2: "Інтеграція з оплатою",
+        shopLi3: "Сповіщення про замовлення",
+        shopLi4: "Панель адміністратора",
+        eduTag: "Для навчання",
+        eduText: "Бот для онлайн-курсів, шкіл і репетиторів із тестами та прогресом.",
+        eduLi1: "Тести та вікторини",
+        eduLi2: "Відстеження прогресу",
+        eduLi3: "Видача сертифікатів",
+        eduLi4: "Розсилка матеріалів",
+        eventTag: "Для заходів",
+        eventText: "Бот для реєстрації учасників, нагадувань, розкладу та статистики.",
+        eventLi1: "Реєстрація учасників",
+        eventLi2: "Нагадування про події",
+        eventLi3: "QR-квитки",
+        eventLi4: "Статистика та звіти",
+        moreButton: "Детальніше",
+        aboutBadge: "Про мене",
+        aboutTitle: "Я створюю ботів, які реально допомагають",
+        aboutP1: "Мене звати Даня, я займаюся розробкою Telegram-ботів для бізнесу, послуг, навчання та автоматизації процесів.",
+        aboutP2: "Моє завдання — не просто написати код, а створити зручного помічника, який економить час, приймає заявки, відповідає клієнтам і допомагає працювати швидше.",
+        discussButton: "Обговорити проєкт",
+        stat1: "Бот працює без вихідних і автоматично відповідає клієнтам",
+        stat2: "Індивідуальна логіка під ваше завдання",
+        stat3: "Швидкий запуск і зрозуміла структура",
+        stat4: "Підтримка та доопрацювання після запуску",
+        servicesBadge: "Послуги",
+        servicesTitle: "Що я можу зробити",
+        service1Title: "🤖 Telegram-бот під ключ",
+        service1Text: "Повна розробка бота з нуля: меню, кнопки, сценарії, логіка, тексти, оформлення та запуск.",
+        service2Title: "🛒 Бот для продажів",
+        service2Text: "Каталог товарів, кошик, оформлення замовлення, сповіщення власнику, зв'язок із клієнтом і зручна структура магазину.",
+        service3Title: "📋 Бот для заявок і запису",
+        service3Text: "Збір імені, телефону, послуги, дати та коментаря клієнта. Усі заявки приходять у зручному вигляді.",
+        service4Title: "🎓 Бот для навчання",
+        service4Text: "Уроки, матеріали, тести, перевірка відповідей, доступи, прогрес учнів та автоматична видача інформації.",
+        service5Title: "📅 Бот для заходів",
+        service5Text: "Реєстрація учасників, розклад, нагадування, QR-коди, список гостей і статистика.",
+        service6Title: "⚙️ Доопрацювання та підтримка",
+        service6Text: "Виправлення помилок, додавання нових функцій, зміна текстів, налаштування кнопок і покращення вже готового бота.",
+        reviewsBadge: "Відгуки",
+        reviewsTitle: "Відгуки клієнтів",
+        review1: "«Бот вийшов зручний і зрозумілий. Тепер заявки приходять автоматично, а клієнтам простіше обрати послугу.»",
+        reviewName1: "— Клієнт проєкту",
+        review2: "«Дуже сподобалося, що все зробили під моє завдання, без зайвої складності. Меню виглядає акуратно.»",
+        reviewName2: "— Власник бізнесу",
+        review3: "«Після запуску стало менше ручного листування. Бот сам пояснює, збирає дані та надсилає заявку.»",
+        reviewName3: "— Замовник Telegram-бота",
+        blogBadge: "Блог",
+        blogTitle: "Статті та корисні матеріали",
+        article1Category: "Telegram-боти",
+        article1Title: "Навіщо бізнесу Telegram-бот?",
+        article1Text: "Бот допомагає автоматизувати відповіді, приймати заявки, показувати послуги та не втрачати клієнтів.",
+        article2Category: "Автоматизація",
+        article2Title: "Які завдання можна передати боту?",
+        article2Text: "Запис клієнтів, анкети, замовлення, розсилки, сповіщення, навчання та видачу матеріалів.",
+        article3Category: "Технології",
+        article3Title: "Що важливо в хорошому Telegram-боті?",
+        article3Text: "Зрозуміла логіка, швидкі відповіді, зручні кнопки, акуратний текст і просте керування.",
+        readMore: "Читати більше",
+        readLess: "Читати менше",
+        article1More: "Telegram-бот працює як маленький менеджер усередині месенджера: зустрічає клієнта, пояснює послуги, збирає дані та передає заявку власнику. Це особливо зручно, коли багато однакових запитань і не хочеться відповідати кожному вручну.",
+        article2More: "Боту можна довірити все, що повторюється щодня: прийом заявок, збір контактів, відповіді на часті запитання, видачу прайсу, реєстрацію на заходи, сповіщення та первинну консультацію клієнта.",
+        article3More: "Хороший бот не повинен плутати людину. У ньому важливо продумати шлях клієнта: куди натиснути, що обрати, які дані залишити та що станеться після заявки. Чим простіша логіка — тим вищий шанс, що клієнт дійде до кінця.",
+        article4Category: "Продажі",
+        article4Title: "Як бот допомагає продавати?",
+        article4Text: "Клієнт може переглянути товари, обрати послугу, оформити замовлення та залишити контакт без зайвого листування.",
+        article4More: "Замість довгих повідомлень у директі клієнт проходить зрозумілий сценарій: обирає категорію, дивиться опис, залишає дані та отримує підтвердження. Власник отримує вже готову заявку, а не хаотичний діалог.",
+        article5Category: "Заявки",
+        article5Title: "Чому форма заявки в боті зручніша?",
+        article5Text: "Бот одразу запитує потрібні дані: проєкт, задачу, контакт, строки та важливі побажання.",
+        article5More: "Коли заявка оформлена за структурою, розробнику простіше оцінити задачу, а клієнту — швидше отримати відповідь. Це економить час обом сторонам і допомагає не забути важливі деталі проєкту.",
+        contactsBadge: "Контакти",
+        contactsTitle: "Хочете Telegram-бота під своє завдання?",
+        contactsText: "Напишіть мені в Telegram, розкажіть ідею, а я підкажу, якого бота краще зробити та які функції в нього додати.",
+        telegramButton: "Написати в Telegram",
+        footer: "© 2026 DANYA DEV. Telegram-боти та автоматизація."
+      },
+      en: {
+        pageTitle: "DANYA DEV — Custom Telegram Bot Development",
+        navHome: "Home",
+        navServices: "Services",
+        navBots: "Bots",
+        navAbout: "About Me",
+        navReviews: "Reviews",
+        navBlog: "Articles",
+        navContacts: "Contacts",
+        contactButton: "Contact",
+        heroBadge: "Telegram bot development",
+        heroTitle: "I create Telegram bots for your tasks",
+        heroText: "Automation, convenience, and efficiency — all in my Telegram bots. I build bots for business, education, requests, events, and sales.",
+        heroWorksButton: "My works",
+        heroServicesButton: "Services",
+        botsBadge: "My bots",
+        botsTitle: "Examples of my work",
+        shopTag: "For stores",
+        shopText: "A bot for online stores with a cart, requests, payments, and notifications.",
+        shopLi1: "Convenient cart",
+        shopLi2: "Payment integration",
+        shopLi3: "Order notifications",
+        shopLi4: "Admin panel",
+        eduTag: "For education",
+        eduText: "A bot for online courses, schools, and tutors with tests and progress tracking.",
+        eduLi1: "Tests and quizzes",
+        eduLi2: "Progress tracking",
+        eduLi3: "Certificate issuing",
+        eduLi4: "Material distribution",
+        eventTag: "For events",
+        eventText: "A bot for participant registration, reminders, schedules, and statistics.",
+        eventLi1: "Participant registration",
+        eventLi2: "Event reminders",
+        eventLi3: "QR tickets",
+        eventLi4: "Statistics and reports",
+        moreButton: "Learn more",
+        aboutBadge: "About me",
+        aboutTitle: "I create bots that really help",
+        aboutP1: "My name is Danya. I develop Telegram bots for businesses, services, education, and process automation.",
+        aboutP2: "My goal is not just to write code, but to create a convenient assistant that saves time, accepts requests, answers clients, and helps you work faster.",
+        discussButton: "Discuss project",
+        stat1: "The bot works 24/7 and answers clients automatically",
+        stat2: "Custom logic for your specific task",
+        stat3: "Fast launch and clear structure",
+        stat4: "Support and improvements after launch",
+        servicesBadge: "Services",
+        servicesTitle: "What I can do",
+        service1Title: "🤖 Turnkey Telegram bot",
+        service1Text: "Full bot development from scratch: menu, buttons, scenarios, logic, texts, design, and launch.",
+        service2Title: "🛒 Sales bot",
+        service2Text: "Product catalog, cart, order placement, owner notifications, client communication, and a convenient store structure.",
+        service3Title: "📋 Request and booking bot",
+        service3Text: "Collecting the client’s name, phone, service, date, and comment. All requests arrive in a convenient format.",
+        service4Title: "🎓 Education bot",
+        service4Text: "Lessons, materials, tests, answer checking, access control, student progress, and automatic content delivery.",
+        service5Title: "📅 Event bot",
+        service5Text: "Participant registration, schedule, reminders, QR codes, guest list, and statistics.",
+        service6Title: "⚙️ Improvements and support",
+        service6Text: "Bug fixes, new features, text updates, button setup, and improvement of an existing bot.",
+        reviewsBadge: "Reviews",
+        reviewsTitle: "Client reviews",
+        review1: "“The bot turned out convenient and clear. Requests now arrive automatically, and clients can choose a service more easily.”",
+        reviewName1: "— Project client",
+        review2: "“I really liked that everything was made for my task without unnecessary complexity. The menu looks neat.”",
+        reviewName2: "— Business owner",
+        review3: "“After launch, there was less manual messaging. The bot explains everything, collects data, and sends the request.”",
+        reviewName3: "— Telegram bot client",
+        blogBadge: "Blog",
+        blogTitle: "Articles and useful materials",
+        article1Category: "Telegram bots",
+        article1Title: "Why does a business need a Telegram bot?",
+        article1Text: "A bot helps automate replies, accept requests, show services, and avoid losing clients.",
+        article2Category: "Automation",
+        article2Title: "What tasks can be given to a bot?",
+        article2Text: "Client booking, forms, orders, newsletters, notifications, education, and material delivery.",
+        article3Category: "Technology",
+        article3Title: "What matters in a good Telegram bot?",
+        article3Text: "Clear logic, fast replies, convenient buttons, neat text, and simple management.",
+        readMore: "Read more",
+        readLess: "Read less",
+        article1More: "A Telegram bot works like a small manager inside the messenger: it welcomes the client, explains services, collects data, and sends the request to the owner. This is especially useful when there are many repeated questions and you do not want to answer each one manually.",
+        article2More: "A bot can handle everything that repeats every day: accepting requests, collecting contacts, answering frequent questions, sending price lists, registering people for events, sending notifications, and giving an initial consultation.",
+        article3More: "A good bot should not confuse the user. It is important to think through the client journey: where to click, what to choose, what data to leave, and what happens after the request. The simpler the logic, the more likely the client will finish the process.",
+        article4Category: "Sales",
+        article4Title: "How does a bot help sell?",
+        article4Text: "A client can view products, choose a service, place an order, and leave contact details without unnecessary messaging.",
+        article4More: "Instead of long direct messages, the client follows a clear scenario: chooses a category, reads the description, leaves details, and receives confirmation. The owner gets a ready request instead of a chaotic conversation.",
+        article5Category: "Requests",
+        article5Title: "Why is a bot request form more convenient?",
+        article5Text: "The bot immediately asks for the needed details: project, task, contact, deadlines, and important wishes.",
+        article5More: "When a request is structured, it is easier for the developer to estimate the task and faster for the client to receive an answer. This saves time for both sides and helps avoid missing important project details.",
+        contactsBadge: "Contacts",
+        contactsTitle: "Want a Telegram bot for your task?",
+        contactsText: "Message me on Telegram, tell me your idea, and I will suggest which bot is best and what features to add.",
+        telegramButton: "Message on Telegram",
+        footer: "© 2026 DANYA DEV. Telegram bots and automation."
+      }
+    };
+
+    function scrollBlog(direction) {
+      const track = document.getElementById("blogTrack");
+      if (!track) return;
+
+      const card = track.querySelector(".article");
+      const gap = 22;
+      const cardWidth = card ? card.offsetWidth + gap : 360;
+      track.scrollBy({
+        left: direction * cardWidth,
+        behavior: "smooth"
+      });
+    }
+
+    function setLang(lang) {
+      // language is fixed for this page
+      document.documentElement.lang = lang === "ua" ? "uk" : lang;
+
+      document.querySelectorAll("[data-i18n]").forEach((element) => {
+        const key = element.dataset.i18n;
+        if (translations[lang] && translations[lang][key]) {
+          element.textContent = translations[lang][key];
+        }
+      });
+
+      if (translations[lang] && translations[lang].pageTitle) {
+        document.title = translations[lang].pageTitle;
+      }
+
+      document.querySelectorAll("[data-lang-btn]").forEach((button) => {
+        button.classList.toggle("active", button.dataset.langBtn === lang);
+      });
+    }
+
+    setLang("ua");
+  </script>
+
+</body>
+</html>
