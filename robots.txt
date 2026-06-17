@@ -1,8 +1,0 @@
-User-agent: Yandex
-Allow: /
-
-User-agent: *
-Allow: /
-
-Host: danyaplus.github.io
-Sitemap: https://danyaplus.github.io/danya-dev/sitemap.xml
