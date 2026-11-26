@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Kodumi TG Bots — Article Studio</title>
+<link href="../logo.png" rel="icon" type="image/png"/>
+<meta content="noindex,nofollow" name="robots"/><meta content="#080b15" name="theme-color"/><link href="../frontend/styles/admin.css" rel="stylesheet"/><script defer="" src="../frontend/js/admin.js"></script></head>
+<body>
+<header>
+<div class="container top">
+<div class="logo"><span class="logo-icon"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewbox="0 0 24 24"><path d="M22 2 7 17m15-15-5 20-5-9-10-5 20-6Z"></path></svg></span><span>Kodumi <small>TG Bots</small></span><span class="studio">/ Article Studio</span></div>
+<a class="pill" href="../index.html">← На сайт</a>
+</div>
+</header>
+<main class="container">
+<section class="panel login-box" id="loginPanel">
+<h1>Article Studio</h1>
+<p>Вход в редактор карточек для блога Kodumi TG Bots.</p>
+<div style="margin-top:22px">
+<label for="login">Логин</label>
+<input autocomplete="username" id="login" placeholder="Введите логин"/>
+<label for="password">Пароль</label>
+<input autocomplete="current-password" id="password" placeholder="Введите пароль" type="password"/>
+<button class="btn" onclick="loginAdmin()" type="button">Войти</button>
+<div class="note hidden" id="loginError">Локальный генератор HTML. Это демонстрационный вход на стороне браузера, не защищённая серверная авторизация. Не храните здесь секретные данные.</div>
+</div>
+<div class="note">
+      GitHub Pages не умеет сам записывать новые статьи в сайт. Эта админка генерирует готовые HTML-карточки для трёх языков.
+    </div>
+</section>
+<section class="hidden" id="adminPanel">
+<div class="panel"><div class="admin-eyebrow">CONTENT / 01</div><button class="btn secondary logout" onclick="logoutAdmin()" type="button">Выйти</button>
+<h1>Новая статья</h1>
+<p>Заполни русскую, украинскую и английскую версии. Потом нажми генерацию — получишь сразу 3 карточки: для <b>index.html</b>, <b>frontend/locales/ua/index.html</b> и <b>frontend/locales/en/index.html</b>.</p>
+<div class="grid">
+<div>
+<h2>Общие настройки карточки</h2>
+<label for="link">Ссылка на полную статью / Telegram-канал</label>
+<input id="link" oninput="updatePreview()" placeholder="https://t.me/…" value=""/>
+<label>Готовая картинка-иконка</label>
+<div class="preset-row">
+<button aria-label="🤖" aria-pressed="true" class="preset active" onclick="setPreset('🤖', this)" type="button">🤖</button>
+<button aria-label="⚙️" aria-pressed="false" class="preset" onclick="setPreset('⚙️', this)" type="button">⚙️</button>
+<button aria-label="✨" aria-pressed="false" class="preset" onclick="setPreset('✨', this)" type="button">✨</button>
+<button aria-label="🛒" aria-pressed="false" class="preset" onclick="setPreset('🛒', this)" type="button">🛒</button>
+<button aria-label="📩" aria-pressed="false" class="preset" onclick="setPreset('📩', this)" type="button">📩</button>
+<button aria-label="🚀" aria-pressed="false" class="preset" onclick="setPreset('🚀', this)" type="button">🚀</button>
+</div>
+<label for="imageUpload">Или загрузить свою картинку</label>
+<input accept="image/png,image/jpeg,image/webp,image/gif,image/avif" id="imageUpload" onchange="loadImage(event)" type="file"/>
+<div class="note">
+            Если загружаешь свою картинку, код будет содержать её прямо внутри карточки. Это удобно, но если картинка огромная, HTML станет тяжёлым.
+          </div>
+</div>
+<div>
+<h2>Предпросмотр</h2>
+<div class="preview-switch">
+<button class="preview-lang active" data-preview-lang="ru" onclick="setPreviewLang('ru')" type="button">RU</button>
+<button class="preview-lang" data-preview-lang="ua" onclick="setPreviewLang('ua')" type="button">UA</button>
+<button class="preview-lang" data-preview-lang="en" onclick="setPreviewLang('en')" type="button">EN</button>
+</div>
+<article class="preview-card">
+<div class="article-image" id="previewImage">🤖</div>
+<small id="previewCategory">Telegram-боты</small>
+<h3 id="previewTitle">Зачем бизнесу Telegram-бот?</h3>
+<p id="previewDescription">Бот помогает автоматизировать ответы, принимать заявки, показывать услуги и не терять клиентов.</p>
+<a class="read-more" href="#" id="previewLink" rel="noopener noreferrer" target="_blank">Читать больше</a>
+</article>
+</div>
+</div>
+</div>
+<div class="panel">
+<h2>Тексты статьи</h2>
+<div class="lang-grid">
+<div class="lang-card">
+<div class="lang-title"><h3>Русский</h3><span class="lang-badge">RU</span></div>
+<label for="ruCategory">Категория</label>
+<input id="ruCategory" oninput="updatePreview()" value="Telegram-боты"/>
+<label for="ruTitle">Заголовок</label>
+<input id="ruTitle" oninput="updatePreview()" value="Зачем бизнесу Telegram-бот?"/>
+<label for="ruDescription">Описание</label>
+<textarea id="ruDescription" oninput="updatePreview()">Бот помогает автоматизировать ответы, принимать заявки, показывать услуги и не терять клиентов.</textarea>
+</div>
+<div class="lang-card">
+<div class="lang-title"><h3>Українська</h3><span class="lang-badge">UA</span></div>
+<label for="uaCategory">Категорія</label>
+<input id="uaCategory" oninput="updatePreview()" value="Telegram-боти"/>
+<label for="uaTitle">Заголовок</label>
+<input id="uaTitle" oninput="updatePreview()" value="Навіщо бізнесу Telegram-бот?"/>
+<label for="uaDescription">Опис</label>
+<textarea id="uaDescription" oninput="updatePreview()">Бот допомагає автоматизувати відповіді, приймати заявки, показувати послуги та не втрачати клієнтів.</textarea>
+</div>
+<div class="lang-card">
+<div class="lang-title"><h3>English</h3><span class="lang-badge">EN</span></div>
+<label for="enCategory">Category</label>
+<input id="enCategory" oninput="updatePreview()" value="Telegram bots"/>
+<label for="enTitle">Title</label>
+<input id="enTitle" oninput="updatePreview()" value="Why does a business need a Telegram bot?"/>
+<label for="enDescription">Description</label>
+<textarea id="enDescription" oninput="updatePreview()">A bot helps automate replies, accept requests, show services, and avoid losing clients.</textarea>
+</div>
+</div>
+<div class="copy-row" style="margin-top:22px">
+<button class="btn" onclick="generateAll()">Сгенерировать 3 карточки</button>
+<button class="btn secondary" onclick="copyAll()">Скопировать всё сразу</button>
+<button class="btn secondary" onclick="resetForm()">Очистить</button>
+</div>
+<div class="success hidden" id="copyStatus">Скопировано!</div>
+</div>
+<div class="panel">
+<h2>Куда вставлять</h2>
+<p>Каждую карточку вставляй <b>самой первой</b> после строки:</p>
+<div class="note" style="color:#d9dcff;background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.12)">
+        &lt;div class="blog-track" id="blogTrack"&gt;
+      </div>
+<p style="margin-top:12px">Так новая статья станет первой слева, а старые будут уходить вправо и листаться стрелками.</p>
+</div>
+<div class="panel">
+<h2>Готовые HTML-карточки</h2>
+<div class="code-grid">
+<div>
+<h3>Для index.html</h3>
+<div class="copy-row"><button class="btn secondary" onclick="copyOne('ruCode')">Скопировать RU</button></div>
+<textarea class="code" id="ruCode" readonly=""></textarea>
+</div>
+<div>
+<h3>Для frontend/locales/ua/index.html</h3>
+<div class="copy-row"><button class="btn secondary" onclick="copyOne('uaCode')">Скопировать UA</button></div>
+<textarea class="code" id="uaCode" readonly=""></textarea>
+</div>
+<div>
+<h3>Для frontend/locales/en/index.html</h3>
+<div class="copy-row"><button class="btn secondary" onclick="copyOne('enCode')">Скопировать EN</button></div>
+<textarea class="code" id="enCode" readonly=""></textarea>
+</div>
+</div>
+</div>
+</section>
+</main>
+</body>
+</html>
